@@ -4,20 +4,21 @@
        <el-row>
          <el-col :span="4">
           <el-menu
-            default-active="2"
+            :default-active="active"
             class="el-menu-vertical-demo"
             background-color="#545c64"
             text-color="#fff"
-            select="elSelect"
+            @select="elSelect"
+            :router="isRouter"
             active-text-color="#ffd04b">
                 <router-link :to="{name:'one'}">
-                    <el-menu-item index="1">
+                    <el-menu-item index="/message/one">
                         <i class="el-icon-menu"></i>
                         <span slot="title"> 所有消息 </span>       
                     </el-menu-item>
                 </router-link> 
                 <router-link :to="{name:'two'}">
-                    <el-menu-item index="2">
+                    <el-menu-item index="/message/two">
                         <i class="el-icon-document"></i>
                         <span slot="title">  系统消息</span>                        
                     </el-menu-item>
@@ -35,9 +36,25 @@
 </template>
 <script>
 export default {
+    data(){
+        return {
+            active:'/message/one',
+            isRouter:false,
+        }
+    },
     methods:{
         toLogin(){
             this.$router.push({name:'login'});
+        },
+        elSelect(one){
+            console.log(one)
+            const curRoute=this.$route;
+            console.log(curRoute)
+            // if(one!==curRoute){
+            //     return false
+            // }
+            this.active='/message/one'
+            console.log('active',this.active)
         }
     }
 }
